@@ -158,6 +158,8 @@ terraform output api_url
 > - Smoke test y flujo CRUD con CORS verificado.
 > - El usuario `rpenavera` tiene adjunta la política gestionada `TerraformTasksLabPolicy`
 >   (definida en [`iam/terraform-deploy-policy.json`](iam/terraform-deploy-policy.json)).
+> - Repositorio: https://github.com/rpenavera/tasks-lambda-dynamodb-vite-vercel
+> - Vercel conectado al repo (Root Directory `frontend`): cada push a `main` redespliega.
 
 ### 2. Frontend en Vercel
 
