@@ -1,0 +1,11 @@
+{
+  "name": "tasks-lambda",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Task list API running on AWS Lambda + DynamoDB",
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check src/handler.mjs && node --check src/http.mjs && node --check src/validation.mjs && node --check src/tasks-service.mjs && node --check src/tasks-repository.mjs"
+  }
+}

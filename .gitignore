@@ -1,0 +1,32 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+crash.log
+lambda.zip
+override.tf
+override.tf.json
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+frontend/.vite/
+*.tsbuildinfo
+.vercel/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Keys and secrets
+*.pem
+aws-terraform-key
+aws-terraform-key.pub
+
+# Logs and OS
+*.log
+.DS_Store

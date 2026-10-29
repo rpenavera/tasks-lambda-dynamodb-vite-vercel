@@ -1,0 +1,7 @@
+aws_region          = "us-east-2"
+project_name        = "tasks-1-5-50"
+environment         = "dev"
+lambda_runtime      = "nodejs20.x"
+lambda_memory_mb    = 256
+cors_allow_origins  = ["*"]
+log_retention_days  = 7
