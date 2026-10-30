@@ -21,6 +21,7 @@ frontend/.vite/
 .env
 .env.*
 !.env.example
+!frontend/.env.development
 
 # Keys and secrets
 *.pem

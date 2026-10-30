@@ -66,18 +66,16 @@ terraform init
 
 ## Arranque local
 
-La SPA necesita una API desplegada. Con la infraestructura aplicada:
+No hace falta configurar nada: `frontend/.env.development` ya apunta a la API desplegada.
 
 ```bash
 cd frontend
-cp .env.example .env.local
-# Edita .env.local y pon la URL de la API:
-# VITE_API_URL=https://<id>.lambda-url.us-east-2.on.aws
+npm ci
 npm run dev
 ```
 
-Abre `http://localhost:5173`. Si `VITE_API_URL` no está definida, la app arranca pero muestra
-un error claro al consultar la API.
+Abre `http://localhost:5173`. Si quieres usar otra API, copia `.env.example` a `.env.local` y
+define `VITE_API_URL`; `.env.local` tiene prioridad y no se versiona.
 
 ## API
 
@@ -239,7 +237,7 @@ terraform destroy -auto-approve
 
 | Variable | Dónde | Descripción |
 |---|---|---|
-| `VITE_API_URL` | Vercel / `.env.local` | URL base de la API Lambda |
+| `VITE_API_URL` | Vercel / `.env.local` (`frontend/.env.development` ya trae la de demo) | URL base de la API Lambda |
 | `TF_VAR_aws_region` | local (opcional) | Región AWS (por defecto `us-east-2`) |
 | `TF_VAR_environment` | local (opcional) | Entorno (`dev`) |
 | `TF_VAR_cors_allow_origins` | local (opcional) | Orígenes CORS permitidos |
