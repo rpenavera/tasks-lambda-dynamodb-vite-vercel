@@ -1,5 +1,8 @@
 # Tasks — Vite + AWS Lambda + DynamoDB
 
+[![CI](https://github.com/rpenavera/tasks-lambda-dynamodb-vite-vercel/actions/workflows/ci.yml/badge.svg)](https://github.com/rpenavera/tasks-lambda-dynamodb-vite-vercel/actions/workflows/ci.yml)
+[![Web](https://img.shields.io/badge/web-tasks--web--azure.vercel.app-4f46e5)](https://tasks-web-azure.vercel.app)
+
 Aplicación profesional de lista de tareas: SPA en **Vite + React + TypeScript** desplegada en
 **Vercel**, contra una **API serverless** (AWS **Lambda** + **Function URL** pública) que
 persiste en **DynamoDB**. Toda la infraestructura se aprovisiona con **Terraform**.
@@ -7,6 +10,7 @@ persiste en **DynamoDB**. Toda la infraestructura se aprovisiona con **Terraform
 ## Contenido
 
 - [Arquitectura](#arquitectura)
+- [Diagramas](#diagramas)
 - [Requisitos](#requisitos)
 - [Instalación](#instalación)
 - [Arranque local](#arranque-local)
@@ -28,6 +32,14 @@ Navegador ──HTTPS──► Vercel (SPA Vite) ──JSON──► Lambda Func
 
 La Lambda está separada en capas `handler → service → repository`; solo el repository habla
 con DynamoDB. Detalle en [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+
+## Diagramas
+
+- [Arquitectura interactiva](docs/diagrams/tasks-architecture.html) — componentes, capas y límites de AWS.
+- [Secuencia de creación de tarea](docs/diagrams/tasks-sequence.html) — `POST /tasks` hasta DynamoDB y la rama de validación `400`.
+- Diagramas Mermaid de soporte en [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+
+Los HTML son autónomos: se abren en el navegador y permiten mover el tiempo (Live/Still), cambiar tema y exportar.
 
 ## Requisitos
 
@@ -138,8 +150,19 @@ Smoke test end-to-end contra la API desplegada (crear → listar → actualizar 
 ./scripts/smoke-test.sh "$(terraform output -raw api_url)"
 ```
 
-Cobertura actual del frontend: **76.5% líneas** (90%+ en lógica de dominio: `App`, hooks y API),
-reporte generado en `frontend/coverage/`.
+### Cobertura
+
+Cobertura del frontend con Vitest + V8 (`npm run coverage`); en CI se publica como artifact.
+
+| Área | Líneas |
+|---|---|
+| Global | **76.5%** |
+| `App.tsx` | 90.8% |
+| `hooks/useTasks.ts` | 89.9% |
+| `services/api.ts` | 95.1% |
+
+El código de dominio (UI principal, hooks y cliente HTTP) supera el 60% exigido; el global supera el 40%.
+El reporte HTML se genera en `frontend/coverage/` (no versionado).
 
 ## Despliegue
 
@@ -205,8 +228,9 @@ terraform destroy -auto-approve
 ├── lambda/            # API por capas + tests (node --test)
 ├── frontend/          # SPA Vite + React + TypeScript
 ├── scripts/           # smoke test de la API
-├── docs/              # arquitectura, decisiones, ADRs, benchmarks
+├── docs/              # arquitectura, decisiones, ADRs, benchmarks y diagramas HTML
 ├── iam/               # política mínima para desplegar con Terraform
+├── .env.example       # plantilla de variables (frontend + Terraform)
 ├── *.tf               # infraestructura Terraform
 └── .github/workflows/ # CI (lint, tipos, tests, cobertura, build, terraform validate)
 ```

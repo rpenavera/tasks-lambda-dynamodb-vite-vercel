@@ -27,6 +27,9 @@ frontend/.vite/
 aws-terraform-key
 aws-terraform-key.pub
 
+# Archify working files (the published diagrams live in docs/diagrams/)
+.archify/
+
 # Logs and OS
 *.log
 .DS_Store
